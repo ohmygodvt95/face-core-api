@@ -2,9 +2,11 @@ FROM python:3.10
 
 WORKDIR /app
 
-COPY . .
-
 RUN pip install cmake
+COPY ./requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
+RUN pip install gunicorn
+COPY ./entrypoint.sh /var/entrypoint.sh
+RUN chmod +x /var/entrypoint.sh
 
-CMD ["python", "app.py"]
+ENTRYPOINT [ "/var/entrypoint.sh" ]

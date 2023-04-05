@@ -9,7 +9,7 @@ es = Elasticsearch("http://elasticsearch:9200")
 @app.route("/")
 def welcome():
     return jsonify({
-        'message': 'welcome'
+        'message': 'welcome1'
     })
 
 @app.route("/search", methods=["POST"])
@@ -22,7 +22,7 @@ def search():
                     "match_all": {}
                 }, 
                 "script": { 
-                    "source": "cosineSimilarity(params.query_vector, 'face_encoding') > 0.95 ? _score : 0", 
+                    "source": "cosineSimilarity(params.query_vector, 'face_encoding')", 
                     "params": {
                         "query_vector":face_encoding.tolist() 
                     }
